@@ -2,7 +2,7 @@ var path = require('path');
 var Sequelize = require('sequelize');
 
 // Acceso a BD.
-// PostgreSQL: DATABASE_URL=postgres://usuario:clave@servidor:puerto/bd/
+// PostgreSQL: DATABASE_URL=postgres://usuario:clave@servidor:puerto/bd
 // SQLite:     DATABASE_URL=sqlite://:@:/
 
 var url = process.env.DATABASE_URL.match(/(.*)\:\/\/(.*?)\:(.*)@(.*)\:(.*)\/(.*)/);
@@ -26,9 +26,12 @@ exports.Quiz = Quiz;
 // Inicializar la BD de preguntas.
 sequelize.sync().success(function() {
 	Quiz.count().success(function(count) {
-		if (count === 0) {
-			Quiz.create({ pregunta: 'Capital de Italia', respuesta: 'Roma' })
-			    .success(function() {
+		if (count === 0) {	// Rellenar tabla vacía.
+			Quiz.create({ pregunta: 'Capital de Italia',
+				      respuesta: 'Roma' });
+			Quiz.create({ pregunta: 'Capital de Portugal',
+				      respuesta: 'Lisboa' })
+			    .then(function() {
 				console.log('Base de datos inicializada.')
 			    });
 		}
