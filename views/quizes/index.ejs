@@ -1,5 +1,14 @@
+<form method="get" action="/quizes">
+  <label for="search">Introducir texto para buscar preguntas:</label>
+  <input type="text" name="search" value="<%= srch %>">
+  <input type="submit" value="Enviar">
+</form>
+<% if (quizes.length > 0) { %>
 <table>
-<% for (var i=0; i < quizes.length; i++) { %>
+<%     for (var i=0; i < quizes.length; i++) { %>
     <tr><td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td></tr>
-<% } %>
+<%     } %>
 </table>
+<% } else { %>
+<p>No se han encontrado preguntas.</p>
+<% } %>

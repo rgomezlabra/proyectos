@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Quiz</title>
-  <link rel="stylesheet" href="/stylesheets/style.css" />
-</head>
-<body>
-
 <p><%= respuesta %></p>
-<p><a href="/quizes/<%= quiz.id %>">Inténtalo de nuevo</a></p>
-
-</body>
-</html>
+<% if ( respuesta === 'Correcto') { %>
+<p><a href="/quizes">Volver a lista de preguntas</a></p>
+<% } else { %>
+<p><a href="/quizes/<%= quiz.id %>">Intertar de nuevo</a></p>
+<% } %>

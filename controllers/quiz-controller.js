@@ -13,11 +13,14 @@ exports.load = function(req, res, next, quizId) {
 	}).catch(function(error) { next(error); });
 };
 
-// GET /quizes
+// GET /quizes?search=búsqueda
 exports.index = function(req, res) {
-	models.Quiz.findAll().then(function(quizes) {
-		res.render('quizes/index', { quizes: quizes });
-	});
+	var querySearch = req.query.search || '';
+	var like = '%' + querySearch.trim().replace(/\s+/g, '%') + '%';
+	models.Quiz.findAll({ where: ['pregunta LIKE ?', like], order: 'pregunta ASC' })
+		.then(function(quizes) {
+			res.render('quizes/index', { quizes: quizes, srch: querySearch });
+		});
 };
 
 // GET /quizes/:id
@@ -27,7 +30,7 @@ exports.show = function(req, res) {
 
 // GET /quizes/:id/answer
 exports.answer = function(req, res) {
-	if (req.query.respuesta === quiz.req.respuesta) {
+	if (req.query.respuesta === req.quiz.respuesta) {
 		var resultado = "Correcto";
 	} else {
 		var resultado = "Incorrecto";
