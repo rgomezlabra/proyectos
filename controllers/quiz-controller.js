@@ -13,7 +13,7 @@ exports.load = function(req, res, next, quizId) {
 	}).catch(function(error) { next(error); });
 };
 
-// GET /quizes?search=búsqueda
+// GET /quizes y /quizes?search=búsqueda
 exports.index = function(req, res) {
 	var querySearch = req.query.search || '';
 	var like = '%' + querySearch.trim().replace(/\s+/g, '%') + '%';
@@ -37,3 +37,19 @@ exports.answer = function(req, res) {
 	}
 	res.render('quizes/answer', { quiz: req.quiz, respuesta: resultado });
 };
+
+// GET /quizes/new
+exports.new = function(req, res) {
+	var quiz = models.Quiz.build({ pregunta: 'Pregunta', respuesta: 'Respuesta' });
+	res.render('quizes/new', { quiz: quiz });
+};
+
+// POST /quizes/create
+exports.create = function(req, res) {
+	var quiz = models.Quiz.build(req.body.quiz);
+	quiz.save({ fields: ["pregunta", "respuesta"] })
+		.then(function() {
+			res.redirect('/quizes');
+		});
+};
+
