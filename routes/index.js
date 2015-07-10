@@ -5,10 +5,14 @@ var quizController = require('../controllers/quiz-controller');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Quiz' });
+	res.render('index', { title: 'Quiz', errors: [] });
 });
 router.get('/author', function(req, res, next) {
-  res.render('author', { author: 'Ramón M. Gómez', photo: 'http://www.informatica.us.es/~ramon/ramon.jpg' });
+	res.render('author',
+		{ author: 'Ramón M. Gómez',
+		  photo: 'http://www.informatica.us.es/~ramon/ramon.jpg',
+		  errors: []
+		});
 });
 
 // Carga de identificadores de preguntas.
