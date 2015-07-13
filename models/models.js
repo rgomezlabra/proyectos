@@ -24,8 +24,8 @@ var Quiz = sequelize.import(path.join(__dirname, 'quiz'));
 exports.Quiz = Quiz;
 
 // Inicializar la BD de preguntas.
-sequelize.sync().success(function() {
-	Quiz.count().success(function(count) {
+sequelize.sync().then(function() {
+	Quiz.count().then(function(count) {
 		if (count === 0) {	// Rellenar tabla vacía.
 			Quiz.create({ pregunta: 'Capital de Italia',
 				      respuesta: 'Roma' });

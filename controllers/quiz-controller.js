@@ -3,7 +3,7 @@ var models = require('../models/models.js');
 
 // Autocarga.
 exports.load = function(req, res, next, quizId) {
-	models.Quiz.find(quizId).then(function(quiz) {
+	models.Quiz.findById(quizId).then(function(quiz) {
 		if (quiz) {
 			req.quiz = quiz;
 			next();
@@ -49,7 +49,7 @@ exports.create = function(req, res) {
 	var quiz = models.Quiz.build(req.body.quiz);
 	quiz.validate().then(function(err) {
 		if (err) {
-			res.render('quizes/answer', { quiz: quiz, errors: err.errors });
+			res.render('quizes/new', { quiz: quiz, errors: err.errors });
 		} else {
 			quiz.save({ fields: ["pregunta", "respuesta"] })
 				.then(function() {
