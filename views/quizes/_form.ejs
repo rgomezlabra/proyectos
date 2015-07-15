@@ -3,8 +3,18 @@
     <input type="text" id="preg" name="quiz[pregunta]" value="<%= quiz.pregunta %>" />
   </div>
   <div>
-    <label for="resp" class="rem">Pregunta:</label>
+    <label for="resp" class="rem">Respuesta:</label>
     <input type="text" id="resp" name="quiz[respuesta]" value="<%= quiz.respuesta %>" />
+  </div>
+  <div>
+    <label for="Tema" class="rem">Tema:</label>
+    <select id="tema" name="quiz[tema]">
+      <option value="otro" selected>Otro</option>
+      <option value="humanidades">Humanidades</option>
+      <option value="ocio">Ocio</option>
+      <option value="ciencia">Ciencia</option>
+      <option value="tecnologia">Tecnología</option>
+    </select>
   </div>
   <div>
     <a href="/quizes"><button type="button">Cancelar</button></a>

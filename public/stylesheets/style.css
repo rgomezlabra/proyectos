@@ -6,5 +6,6 @@ body			{ font: 16px Arial, sans-serif; }
 section > div		{ padding: 20px; }
 header, nav, section, footer	{ background: #eee; text-align: center; }
 nav span		{ margin: 0px 10px 0px 0px; }
+table tr td:first-letter { text-transform: capitalize; }
 #ErrorMsgs		{ color: #f61; font-size: smaller; }
 #fotoautor		{ width: 100px; padding: 10px; }
