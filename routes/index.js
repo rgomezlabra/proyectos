@@ -3,6 +3,7 @@ var router = express.Router();
 
 var quizController = require('../controllers/quiz-controller');
 var commentController = require('../controllers/comment-controller');
+var sessionController = require('../controllers/session-controller');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -19,7 +20,12 @@ router.get('/author', function(req, res, next) {
 // Carga de identificadores de preguntas.
 router.param('quizId', quizController.load);
 
-// Rutas REST.
+// Rutas REST de sesión.
+router.get('/login',  sessionController.new);
+router.post('/login', sessionController.create);
+router.get('/logout', sessionController.destroy);
+
+// Otras rutas REST.
 router.get('/quizes',                      quizController.index);
 router.get('/quizes/:quizId(\\d+)',        quizController.show);
 router.get('/quizes/:quizId(\\d+)/answer', quizController.answer);
