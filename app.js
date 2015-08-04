@@ -27,6 +27,24 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Helpers dinámicos.
+
+// Registrar tiempo de cada conexión de la sesión autentificada.
+app.use(function(req, res, next) {
+	// Comprobar si el usuario está autentificado.
+	if (req.session.user) {
+		var aux = Date.now();
+		// Borrar valores de sesión si el tiempo de la petición anterior es > 120 ms.
+		if (req.session.time && (aux - req.session.time) > 120000) {
+			delete req.session.user;
+			delete req.session.time;
+		} else {
+			// Guardar timepo actual.
+			req.session.time = aux;
+		}
+	}
+	next();
+});
+
 app.use(function(req, res, next) {
   // Guardar path en session.redir tras login.
   if (!req.path.match(/\/login|\/logout/)) {
